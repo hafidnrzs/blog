@@ -1,0 +1,45 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<div class="marquee">
+  <Icon name="star" />
+  <span>Front-End</span>
+  <Icon name="star" />
+  <span>Back-End</span>
+  <Icon name="star" />
+  <span>AI/Machine Learning</span>
+  <Icon name="star" />
+  <span>DevOps</span>
+  <Icon name="star" />
+  <span>Front-End</span>
+  <Icon name="star" />
+  <span>Back-End</span>
+  <Icon name="star" />
+  <span>AI/Machine Learning</span>
+  <Icon name="star" />
+  <span>DevOps</span>
+  <Icon name="star" />
+</div>
+<style>
+  [data-icon='star'] {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+  }
+  .marquee {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+    font-size: 1.75rem;
+    white-space: nowrap;
+    border-block: 1px solid var(--color-gray-02);
+    overflow: hidden;
+
+    &::-webkit-scrollbar {
+      display: none; /* Hide scrollbar for WebKit browsers */
+    }
+  }
+</style>

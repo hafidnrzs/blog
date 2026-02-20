@@ -5,10 +5,12 @@ import sitemap from '@astrojs/sitemap';
 
 import node from '@astrojs/node';
 
+import icon from 'astro-icon';
+
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
-  integrations: [mdx(), sitemap()],
+  site: 'https://hafidnrzs.com',
+  integrations: [mdx(), sitemap(), icon()],
 
   adapter: node({
     mode: 'standalone',

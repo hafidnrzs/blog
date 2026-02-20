@@ -1,0 +1,97 @@
+<section id="hero" class="container">
+  <span class="intro">Halo👋</span>
+  <p class="font-sans">
+    Halo, saya <strong>Hafid Nur</strong>, full-stack developer. Saat ini saya
+    sedang kuliah Teknik Informatika di Universitas Dian Nuswantoro (Udinus).
+  </p>
+
+  <div class="cta">
+    <a href="/blog" class="btn btn__cta">Baca Blog</a>
+  </div>
+  <div class="contact font-sans">
+    <a
+      href="https://www.linkedin.com/in/hafidnrzs/"
+      target="_blank"
+      rel="noopener noreferrer">LinkedIn</a
+    >|
+    <a
+      href="https://github.com/hafidnrzs"
+      target="_blank"
+      rel="noopener noreferrer">GitHub</a
+    >|
+    <a
+      href="https://www.facebook.com/hafidnrzs"
+      target="_blank"
+      rel="noopener noreferrer">Facebook</a
+    >
+  </div>
+</section>
+
+<style>
+  @media (min-width: 768px) {
+    .container {
+      border-inline: 1px solid var(--color-gray-02);
+    }
+  }
+  #hero {
+    p {
+      max-width: 600px;
+      color: var(--color-gray-08);
+      strong {
+        color: var(--color-black);
+      }
+    }
+    .intro {
+      font-size: 4rem;
+    }
+    .cta {
+      display: flex;
+      gap: 24px;
+    }
+    .contact {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      font-size: 1rem;
+
+      a {
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding-inline: 24px;
+    text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: var(--color-black);
+    color: var(--color-white);
+
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+  .btn--outline {
+    background-color: transparent;
+    color: var(--color-black);
+    border: 1px solid var(--color-black);
+
+    &:hover {
+      background-color: var(--color-neutral-02);
+      color: var(--color-black);
+    }
+  }
+</style>

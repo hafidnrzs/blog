@@ -1,0 +1,154 @@
+<section id="blog-preview" class="container">
+  <h3 class="title font-sans">Blog</h3>
+  <header class="header">
+    <span class="highlight">Inspirasi Harian<br />dari Blog Saya</span>
+    <p class="font-sans">
+      Halo, saya Hafid Nur, seorang full-stack developer. Saya menulis tentang
+      pemrograman dan AI/Machine learning
+    </p>
+  </header>
+  <span class="latest-article">Latest Article</span>
+  <div class="posts-grid">
+    <article id="post-1">
+      <img src="/blog-placeholder-1.jpg" alt="Post 1" />
+      <time>27 Februari 2026</time>
+      <h2>Why Can't Robots Click The "I'm Not a Robot" Box On Websites?</h2>
+      <p>
+        Robots are great at automating tasks, but they struggle with human-like
+        interactions like clicking a checkbox labeled "I'm not a robot." This is
+        because the verification process is designed to distinguish between
+        human and machine behavior.
+      </p>
+    </article>
+    <article id="post-2">
+      <img src="/blog-placeholder-2.jpg" alt="Post 2" />
+      <time>26 Februari 2026</time>
+      <h2>A Complete Beginner's Guide on How to Earn by Writing Articles</h2>
+      <p>
+        I still remember being inundated with those ads that promise you it's
+        "easy" to figure out how to earn by ...
+      </p>
+    </article>
+    <article id="post-3">
+      <img src="/blog-placeholder-3.jpg" alt="Post 3" />
+      <time>25 Februari 2026</time>
+      <h2>Meet the ChatGPT-4o Models That Are Blowing Minds</h2>
+      <p>
+        I still remember being inundated with those ads that promise you it's
+        "easy" to figure out how to earn by ...
+      </p>
+    </article>
+    <article id="post-4">
+      <img src="/blog-placeholder-4.jpg" alt="Post 4" />
+      <time>24 Februari 2026</time>
+      <h2>
+        I Quit My Blogs and Replaced Them with Three Simple, Free, Writing
+        Platforms
+      </h2>
+      <p>
+        I still remember being inundated with those ads that promise you it's
+        "easy" to figure out how to earn by ...
+      </p>
+    </article>
+  </div>
+  <div class="see-articles">
+    <a href="/blog" class="btn btn--outline">Lihat Semua Artikel</a>
+  </div>
+
+  <style>
+    @media (min-width: 768px) {
+      .container {
+        border-inline: 1px solid var(--color-gray-02);
+      }
+    }
+    .header {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      gap: 1.5rem;
+      .highlight {
+        font-size: 4rem;
+        line-height: 100%;
+      }
+      p {
+        color: var(--color-gray-08);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+    }
+    h3.title {
+      text-align: center;
+      font-size: 1rem;
+      color: var(--color-gray-08);
+      text-transform: uppercase;
+    }
+    .latest-article {
+      display: block;
+      font-size: 2rem;
+      line-height: 100%;
+      margin-top: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    article {
+      display: flex;
+      flex-direction: column;
+      img {
+        margin-bottom: 1rem;
+      }
+      time {
+        color: var(--color-gray-08);
+        font-size: 1rem;
+      }
+      h2 {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.75;
+        margin-bottom: 1rem;
+      }
+      p {
+        font-size: 1rem;
+        color: var(--color-gray-08);
+        margin: 0;
+      }
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      padding-inline: 24px;
+      text-decoration: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background-color: var(--color-black);
+      color: var(--color-white);
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+    .see-articles {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 2.5rem;
+    }
+    .btn--outline {
+      background-color: transparent;
+      color: var(--color-black);
+      border: 1px solid var(--color-black);
+      &:hover {
+        background-color: var(--color-neutral-02);
+        color: var(--color-black);
+      }
+    }
+  </style>
+</section>
