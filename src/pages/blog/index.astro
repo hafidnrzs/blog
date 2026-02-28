@@ -1,6 +1,9 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import BaseHead from '@components/BaseHead.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import BlogPreview from '@components/BlogPreview.astro';
 ---
 
 <!doctype html>
@@ -9,7 +12,10 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
   <body>
+    <Header />
     <main>
+      <BlogPreview />
     </main>
+    <Footer />
   </body>
 </html>
