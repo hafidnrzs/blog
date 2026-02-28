@@ -2,30 +2,28 @@
 import HeaderLink from './HeaderLink.astro';
 ---
 
-<header>
+<header class="container">
   <nav class="navbar">
-    <div class="container">
-      <h2 class="site-title"><a href="/" class="logo">Hafid Nur</a></h2>
-      <div class="internal-links">
-        <HeaderLink href="/blog">Blog</HeaderLink>
-      </div>
+    <h2 class="site-title"><a href="/" class="logo">Hafid Nur</a></h2>
+    <div class="internal-links">
+      <HeaderLink href="/blog">Blog</HeaderLink>
     </div>
   </nav>
 </header>
 <style>
-  @media (min-width: 768px) {
+  @media (width >= 48rem) {
     .container {
       border-inline: 1px solid var(--color-gray-02);
     }
   }
-  .container {
+  .navbar {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
   }
   header {
-    margin: 0;
-    padding: 0 1em;
+    margin: 0 auto;
+    padding-block: 1rem;
     background: white;
     box-shadow: 0 2px 8px rgba(var(--black), 5%);
   }

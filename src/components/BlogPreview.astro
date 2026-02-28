@@ -64,17 +64,24 @@
         border-inline: 1px solid var(--color-gray-02);
       }
     }
+    /* Tablet (768px and up) */
+    @media (width >= 48rem) {
+      .header .highlight {
+        font-size: 4rem;
+      }
+    }
     .header {
       display: flex;
       flex-direction: column;
       text-align: center;
       gap: 1.5rem;
       .highlight {
-        font-size: 4rem;
-        line-height: 100%;
+        font-size: 2rem;
+        line-height: 1.25;
       }
       p {
         color: var(--color-gray-08);
+        font-size: 1rem;
         max-width: 600px;
         margin: 0 auto;
       }
@@ -94,8 +101,9 @@
     }
     .posts-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
+      grid-template-columns: var(--grid-columns);
+      column-gap: 1rem;
+      row-gap: 3rem;
     }
     article {
       display: flex;

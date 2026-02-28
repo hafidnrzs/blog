@@ -27,7 +27,7 @@
   --color-gray-08: #747b8b;
   --color-gray-09: #696f7d;
   --color-gray-10: #3a3e45;
-  --container-padding: 1.2rem; /* 24px - mobile */
+  --container-padding: 1.5rem; /* 24px - mobile */
   --grid-columns: 1fr;
 }
 /* Mobile (default, 0px and up) */
@@ -86,7 +86,7 @@ body {
 @media (width >= 64rem) {
   :root {
     --container-padding: 4rem;
-    --grid-columns: repeat(4, 1fr);
+    --grid-columns: repeat(2, 1fr);
   }
 }
 /* Container - untuk membuat max-width responsive dan rata tengah */
@@ -164,7 +164,7 @@ table {
 img {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 0px;
 }
 code {
   padding: 2px 5px;
