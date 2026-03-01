@@ -119,21 +119,25 @@ h6 {
   margin: 0 0 0.5rem 0;
   color: rgb(var(--black));
   line-height: 1.2;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 h1 {
-  font-size: 3.052em;
+  font-size: 3.052rem;
 }
 h2 {
-  font-size: 2.441em;
+  font-size: 2.441rem;
 }
 h3 {
-  font-size: 1.953em;
+  font-size: 1.953rem;
 }
 h4 {
-  font-size: 1.563em;
+  font-size: 1.563rem;
 }
 h5 {
-  font-size: 1.25em;
+  font-size: 1.25rem;
+}
+h6 {
+  font-size: 1rem;
 }
 strong,
 b {
@@ -160,6 +164,18 @@ input {
 }
 table {
   width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+th,
+td {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--color-gray-08);
+  text-align: left;
+}
+th {
+  font-weight: 600;
 }
 img {
   max-width: 100%;
@@ -169,11 +185,13 @@ img {
 code {
   padding: 2px 5px;
   background-color: rgb(var(--color-black));
-  border-radius: 2px;
+  border-radius: 0px;
 }
 pre {
+  font-size: 1rem;
+  font-family: 'Source Code Pro', monospace;
   padding: 1.5em;
-  border-radius: 8px;
+  border-radius: 0px;
 }
 pre > code {
   all: unset;
@@ -182,12 +200,13 @@ blockquote {
   border-left: 4px solid var(--accent);
   padding: 0 0 0 20px;
   margin: 0px;
-  font-size: 1.333em;
+  font-size: 1rem;
 }
 hr {
   border: none;
   border-top: 1px solid rgb(var(--gray-light));
 }
+
 .sr-only {
   border: 0;
   padding: 0;

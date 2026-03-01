@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { Icon } from 'astro-icon/components';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -11,75 +12,87 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
 <html lang="en">
-	<head>
-		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
-	</head>
+  <head>
+    <BaseHead title={title} description={description} />
+    <style>
+      @media (width >= 48rem) {
+        main {
+          border-inline: 1px solid var(--color-gray-02);
+        }
+      }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding-block: 1.5rem;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 1rem;
+        color: var(--color-gray-08);
+        text-decoration: none;
+        &:hover {
+          color: var(--color-black);
+        }
+      }
+      .hero-image {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        img {
+          display: block;
+          width: 100%;
+          aspect-ratio: 1.91 / 1;
+          object-fit: cover;
+        }
+      }
+      .prose {
+        margin: 0 auto;
+        padding-bottom: 6rem;
+        font-size: 1.25rem;
+        line-height: 1.75;
+      }
+      .meta {
+        margin-bottom: 1rem;
+        color: var(--color-gray-08);
+        font-size: 1.25rem;
+      }
+      .last-updated-on {
+        font-style: italic;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid var(--color-gray-02);
+        margin-bottom: 2rem;
+      }
+    </style>
+  </head>
 
-	<body>
-		<Header />
-		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<hr />
-					</div>
-					<slot />
-				</div>
-			</article>
-		</main>
-		<Footer />
-	</body>
+  <body>
+    <Header />
+    <main class="container">
+      <a href="/blog" class="back-link">
+        <Icon name="mdi:chevron-left" />
+        <span>Semua Artikel </span>
+      </a>
+      <article>
+        <div class="hero-image">
+          {heroImage && <img src={heroImage} alt={title} />}
+        </div>
+        <div class="prose">
+          <div class="meta">
+            <FormattedDate date={pubDate} />
+            {
+              updatedDate && (
+                <div class="last-updated-on">
+                  Terakhir diperbarui: <FormattedDate date={updatedDate} />
+                </div>
+              )
+            }
+          </div>
+          <h1>{title}</h1>
+          <hr />
+          <slot />
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
 </html>
