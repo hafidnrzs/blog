@@ -15,7 +15,7 @@ Setelah menyimak beberapa jawaban, ternyata masalahnya ada di data testing yang 
 
 Di [artikel Medium ini](https://medium.com/@speaktoharisudhan/data-leakage-in-machine-leaning-c382b65f4c09) dijelaskan lebih lengkap tentang Data Leakage. Masalah ini tergolong dalam _Train-Test Contamination_ di mana informasi pada data testing, seperti nilai rata-rata, itu sudah terhitung saat proses standarisasi. Jadi, model sudah tahu sebaran data testing selama melakukan pelatihan.
 
-<img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/htr22r3m9h6beaxu5xi8.png" alt="Test set nyontek train set" style="max-width: 600px;" />
+<img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/htr22r3m9h6beaxu5xi8.png" alt="Test set nyontek train set" width="600" />
 
 Lebih lengkapnya, ini adalah formula untuk melakukan standarisasi. Diperlukan data mean (rata-rata) dan deviasi standar.
 
