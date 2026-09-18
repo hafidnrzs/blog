@@ -12,4 +12,12 @@ export default defineConfig({
   site: 'https://hafidnrzs.com',
   integrations: [mdx(), sitemap(), icon()],
   adapter: cloudflare(),
+  vite: {
+    ssr: {
+      noExternal: ['debug'],
+    },
+    optimizeDeps: {
+      include: ['astro-icon > @iconify/utils > debug'],
+    },
+  },
 });
