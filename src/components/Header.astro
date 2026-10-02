@@ -2,8 +2,8 @@
 import HeaderLink from './HeaderLink.astro';
 ---
 
-<header class="container">
-  <nav class="navbar">
+<header class="band">
+  <nav class="container bare navbar">
     <h2 class="site-title"><a href="/" class="logo">Hafid Nur</a></h2>
     <div class="internal-links">
       <HeaderLink href="/blog">Blog</HeaderLink>
@@ -11,66 +11,33 @@ import HeaderLink from './HeaderLink.astro';
   </nav>
 </header>
 <style>
-  @media (width >= 48rem) {
-    .container {
-      border-inline: 1px solid var(--color-gray-02);
-    }
+  header {
+    height: var(--header-h);
   }
   .navbar {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-  }
-  header {
-    margin: 0 auto;
-    padding-block: 1rem;
-    background: white;
-    box-shadow: 0 2px 8px rgba(var(--black), 5%);
-  }
-  nav {
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    a {
-      padding-bottom: 0.5em;
-      font-size: 1rem;
-      color: var(--color-gray-08);
-      border-bottom: 2px solid transparent;
-      text-decoration: none;
-      &:hover {
-        color: var(--color-gray-10);
-      }
-      &.active {
-        text-decoration: none;
-        border-bottom-color: var(--accent);
-      }
-    }
-    .internal-links {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
   }
-  h2 {
-    margin: 0;
-    font-weight: normal;
-    color: var(--color-black);
+  .site-title {
+    font-size: var(--text-xl);
     line-height: 1;
-    font-size: 1.25rem;
   }
-  h2 a,
-  h2 a.active {
-    font-size: 1.25rem;
-    font-family: 'Noto Serif', serif;
-    line-height: 1;
+  .logo,
+  .internal-links :global(a) {
     color: var(--color-black);
     text-decoration: none;
   }
-  .social-links,
-  .social-links a {
-    display: flex;
-  }
-  @media (max-width: 720px) {
-    .social-links {
-      display: none;
+  .internal-links :global(a) {
+    padding-block: 0.5rem;
+    font-size: var(--text-base);
+    color: var(--color-muted);
+    &:hover {
+      color: var(--color-black);
+    }
+    &.active {
+      color: var(--color-black);
     }
   }
 </style>

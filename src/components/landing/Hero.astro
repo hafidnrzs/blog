@@ -1,114 +1,148 @@
-<section id="hero" class="container">
-  <span class="intro">Halo👋</span>
-  <p class="font-sans">
-    Halo, aku <strong>Hafid Nur</strong>, full-stack developer di Aegislabs.
-    Saat ini sedang kuliah Teknik Informatika di Universitas Dian Nuswantoro
-    (Udinus).
-  </p>
+---
+import Button from '@components/Button.astro';
+---
 
-  <div class="cta">
-    <a href="/blog" class="btn btn__cta">Baca Blog</a>
-  </div>
-  <div class="contact font-sans">
-    <a
-      href="https://www.linkedin.com/in/hafidnrzs/"
-      target="_blank"
-      rel="noopener noreferrer">LinkedIn</a
-    >|
-    <a
-      href="https://github.com/hafidnrzs"
-      target="_blank"
-      rel="noopener noreferrer">GitHub</a
-    >|
-    <a
-      href="https://www.facebook.com/hafidnrzs"
-      target="_blank"
-      rel="noopener noreferrer">Facebook</a
-    >
+<section id="hero">
+  <div class="container inner">
+    <div class="wave" aria-hidden="true">
+      <span class="fallback">👋</span>
+    </div>
+    <div class="intro">
+      <h1>Halo, saya Hafid Nur.</h1>
+      <p class="role">Full-stack developer</p>
+      <p class="detail">
+        Di <a
+          href="https://aegis.co.id/"
+          target="_blank"
+          class="link-grow"
+          rel="noopener noreferrer"
+          >Aegislabs</a
+        >. Mahasiswa Teknik Informatika, Universitas Dian Nuswantoro (Udinus).
+      </p>
+      <div class="actions">
+        <Button href="/blog">Baca Blog</Button>
+        <ul class="contact">
+          <li>
+            <a
+              href="https://www.linkedin.com/in/hafidnrzs/"
+              target="_blank"
+              class="link-grow" rel="noopener noreferrer">LinkedIn</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://github.com/hafidnrzs"
+              target="_blank"
+              class="link-grow" rel="noopener noreferrer">GitHub</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.facebook.com/hafidnrzs"
+              target="_blank"
+              class="link-grow" rel="noopener noreferrer">Facebook</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
+<script>
+  import lottie from 'lottie-web/build/player/lottie_light';
+
+  const box = document.querySelector<HTMLElement>('#hero .wave');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (box) {
+    // Plays once on load, then replays on hover.
+    const anim = lottie.loadAnimation({
+      container: box,
+      renderer: 'svg',
+      path: '/animations/wave.json',
+      loop: false,
+      autoplay: !reduceMotion,
+    });
+    let playing = !reduceMotion;
+    anim.addEventListener('complete', () => (playing = false));
+    anim.addEventListener('DOMLoaded', () => {
+      box.querySelector('.fallback')?.remove();
+      if (reduceMotion) anim.goToAndStop(0, true);
+    });
+    box.addEventListener('mouseenter', () => {
+      if (reduceMotion || playing) return;
+      playing = true;
+      anim.goToAndPlay(0, true);
+    });
+  }
+</script>
+
 <style>
   #hero {
-    text-align: center;
-    padding-top: 4rem;
-    padding-bottom: 6rem;
-    p {
-      max-width: 600px;
-      margin: 1rem auto;
-      color: var(--color-gray-08);
-      strong {
-        color: var(--color-black);
-      }
-    }
-    .intro {
-      font-size: 4rem;
-    }
-    .cta {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-    }
-    .contact {
-      margin-top: 48px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      font-size: 1rem;
-      a {
-        text-decoration: none;
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
+    background-color: var(--color-lime-pale);
   }
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-    padding-inline: 24px;
-    text-decoration: none;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    background-color: var(--color-black);
-    color: var(--color-white);
-
-    &:hover {
-      opacity: 0.85;
-    }
-  }
-  @media (min-width: 768px) {
-    .container {
-      border-inline: 1px solid var(--color-gray-02);
-    }
-    #hero {
-      text-align: left;
-      p {
-        margin: 1rem 0;
-      }
-    }
-    #hero .cta {
-      justify-content: flex-start;
-    }
-    #hero .contact {
-      justify-content: flex-start;
-    }
-  }
-  .btn--outline {
+  .inner {
     background-color: transparent;
-    color: var(--color-black);
-    border: 1px solid var(--color-black);
-
-    &:hover {
-      background-color: var(--color-neutral-02);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    min-height: calc(100svh - var(--header-h) - var(--marquee-h));
+    padding-block: 3rem;
+  }
+  .wave {
+    width: clamp(9rem, 38vw, 14rem);
+    aspect-ratio: 1;
+    font-size: 8rem;
+    line-height: 1;
+    cursor: default;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 1.4rem + 5vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  }
+  .role {
+    margin-top: 1rem;
+    color: var(--color-teal);
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .detail {
+    max-width: 30rem;
+    margin-top: 0.75rem;
+    color: var(--color-charcoal);
+    a {
       color: var(--color-black);
+    }
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem 2rem;
+    margin-top: 2rem;
+  }
+  .contact {
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (width >= 56rem) {
+    .inner {
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+    }
+    .wave {
+      flex-shrink: 0;
+      width: clamp(15rem, 30vw, 26rem);
+      font-size: 14rem;
     }
   }
 </style>

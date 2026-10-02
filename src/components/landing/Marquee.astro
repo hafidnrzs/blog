@@ -1,51 +1,95 @@
 ---
 import { Icon } from 'astro-icon/components';
+
+const skills = ['Front-End', 'Back-End', 'AI/Machine Learning', 'DevOps'];
+// Each group must be wider than the viewport, so the list repeats.
+const group = [...skills, ...skills];
 ---
 
-<div class="marquee">
-  <Icon name="star" />
-  <span>Front-End</span>
-  <Icon name="star" />
-  <span>Back-End</span>
-  <Icon name="star" />
-  <span>AI/Machine Learning</span>
-  <Icon name="star" />
-  <span>DevOps</span>
-  <Icon name="star" />
-  <span>Front-End</span>
-  <Icon name="star" />
-  <span>Back-End</span>
-  <Icon name="star" />
-  <span>AI/Machine Learning</span>
-  <Icon name="star" />
-  <span>DevOps</span>
-  <Icon name="star" />
+<div class="marquee" aria-label={skills.join(', ')}>
+  <div class="track" aria-hidden="true">
+    {
+      [0, 1].map(() => (
+        <ul class="group">
+          {group.map((skill) => (
+            <li>
+              <Icon name="star" />
+              <span>{skill}</span>
+            </li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
 </div>
+
 <style>
-  [data-icon='star'] {
-    width: 2rem;
-    height: 2rem;
-    flex-shrink: 0;
-  }
   .marquee {
-    /* display: none; */
+    height: var(--marquee-h);
     display: flex;
-    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-block: 1px solid var(--color-rail);
+    background-color: var(--color-lime);
+    color: var(--color-teal);
+    overflow: hidden;
+    /* Edge fades stay put while the track moves underneath. */
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      inset-block: 0;
+      width: 5rem;
+      z-index: 1;
+      pointer-events: none;
+    }
+    &::before {
+      left: 0;
+      background: linear-gradient(to right, var(--color-lime), transparent);
+    }
+    &::after {
+      right: 0;
+      background: linear-gradient(to left, var(--color-lime), transparent);
+    }
+  }
+  .track {
+    display: flex;
+    width: max-content;
+    animation: scroll 45s linear infinite;
+  }
+  .marquee:hover .track {
+    animation-play-state: paused;
+  }
+  .group {
+    display: flex;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    display: flex;
     align-items: center;
     gap: 2rem;
-    padding: 2rem 0;
-    font-size: 1.75rem;
+    padding-right: 2rem;
+    font-size: var(--text-2xl);
+    font-weight: 500;
     white-space: nowrap;
-    border-block: 1px solid var(--color-gray-02);
-    overflow: hidden;
   }
-  @media (min-width: 48rem) {
-    .marquee {
-      display: flex;
-
-      &::-webkit-scrollbar {
-        display: none;
-      }
+  [data-icon='star'] {
+    flex-shrink: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  /* Two identical groups: -50% lands exactly on the start of the second. */
+  @keyframes scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .track {
+      animation: none;
     }
   }
 </style>

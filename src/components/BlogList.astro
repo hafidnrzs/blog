@@ -1,116 +1,25 @@
 ---
 import { getCollection } from 'astro:content';
-
-import FormattedDate from '@components/FormattedDate.astro';
+import PostList from './PostList.astro';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
-<section id="blog-list" class="container">
-  <h3 class="title font-sans">Blog</h3>
-  <header class="header">
-    <span class="highlight">Inspirasi Harian<br />dari Blog-ku</span>
-    <p class="font-sans">
-      Halo, aku Hafid Nur, seorang full-stack developer. Aku menulis tentang
-      pemrograman dan AI/Machine learning
-    </p>
-  </header>
-  <span class="all-articles">Semua Artikel</span>
-  <div class="posts-grid">
-    {
-      posts.map((post) => (
-        <article>
-          <a href={`/blog/${post.id}/`}>
-            <img src={post.data.heroImage} alt={post.data.title} />
-            <FormattedDate date={post.data.pubDate} />
-            <h2>{post.data.title}</h2>
-            <p>{post.data.description}</p>
-          </a>
-        </article>
-      ))
-    }
+<section id="blog-list" class="band">
+  <div class="container inner">
+    <h1>Semua Artikel</h1>
+    <PostList posts={posts} />
   </div>
-
-  <style>
-    #blog-list {
-      padding-block: 6rem;
-      padding-top: 0.5rem;
-    }
-    @media (min-width: 768px) {
-      #blog-list {
-        border-inline: 1px solid var(--color-gray-02);
-      }
-    }
-    /* Tablet (768px and up) */
-    @media (width >= 48rem) {
-      .header .highlight {
-        font-size: 4rem;
-      }
-    }
-    .header {
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      gap: 1.5rem;
-      .highlight {
-        font-size: 2rem;
-        line-height: 1.25;
-      }
-      p {
-        color: var(--color-gray-08);
-        font-size: 1rem;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-    }
-    h3.title {
-      text-align: center;
-      font-size: 1rem;
-      color: var(--color-gray-08);
-      text-transform: uppercase;
-    }
-    .all-articles {
-      display: block;
-      font-size: 2rem;
-      line-height: 100%;
-      margin-top: 2.5rem;
-      margin-bottom: 1.5rem;
-    }
-    .posts-grid {
-      display: grid;
-      grid-template-columns: var(--grid-columns);
-      column-gap: 1rem;
-      row-gap: 2rem;
-    }
-    article a {
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      color: inherit;
-      img {
-        width: 100%;
-        max-width: 1200px;
-        aspect-ratio: 1.91 / 1;
-        object-fit: cover;
-      }
-      time {
-        color: var(--color-gray-08);
-        font-size: 1rem;
-      }
-      h2 {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: 1.25rem;
-        font-weight: bold;
-        line-height: 1.75;
-        margin: 0;
-      }
-      p {
-        font-size: 1rem;
-        color: var(--color-gray-08);
-        margin: 0;
-      }
-    }
-  </style>
 </section>
+
+<style>
+  .inner {
+    padding-block: clamp(6rem, 4rem + 10vw, 14rem) 6rem;
+  }
+  h1 {
+    margin-bottom: 2rem;
+    font-size: var(--text-3xl);
+  }
+</style>

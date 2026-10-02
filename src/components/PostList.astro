@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import PostItem from './PostItem.astro';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+<ol>
+  {posts.map((post) => <PostItem post={post} />)}
+</ol>
+
+<style>
+  ol {
+    /* Rows pad 0.75rem inside; pull out so text stays on the page edge. */
+    margin: 0 -0.75rem;
+    padding: 0;
+    list-style: none;
+    border-bottom: 1px solid var(--color-rail);
+  }
+</style>
