@@ -2,7 +2,6 @@
 title: 'Finally, I added the attribution to Claude in the commit messages and PR description'
 description: 'Welcome back, Co-Authored-By: Claude...'
 pubDate: 2026-09-18
-heroImage: 'https://media.hafidnrzs.com/claude-attribution.webp'
 ---
 
 Sekarang, tahun 2026, Large Language Model (LLM) sudah berkembang dengan kecepatan yang belum pernah terbayangkan sebelumnya. Sering kali kita menyebut "AI" untuk menggeneralisasi model LLM ini. Model-model AI sudah bisa generate code yang sangat bagus, layak dipakai untuk aplikasi production.

@@ -44,6 +44,48 @@
   }
 }
 
+/* Histogram hover fill on post rows (see PostItem.astro). */
+@property --b0 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+@property --b1 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+@property --b2 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+@property --b3 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+@property --b4 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+@property --b5 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+@property --b6 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+@property --b7 {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
 *,
 *::before,
 *::after {
@@ -62,6 +104,8 @@ body {
   line-height: 1.6;
   color: var(--color-black);
   background-color: var(--color-lime-pale);
+  /* Plus Jakarta Sans ligatures (fi) read oddly in names. */
+  font-variant-ligatures: none;
   overflow-wrap: break-word;
   min-height: 100svh;
   display: flex;

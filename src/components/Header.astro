@@ -13,6 +13,7 @@ import HeaderLink from './HeaderLink.astro';
 <style>
   header {
     height: var(--header-h);
+    background-color: var(--color-lime);
   }
   .navbar {
     height: 100%;
@@ -30,9 +31,16 @@ import HeaderLink from './HeaderLink.astro';
     text-decoration: none;
   }
   .internal-links :global(a) {
-    padding-block: 0.5rem;
+    position: relative;
+    padding-block: 0.125rem;
     font-size: var(--text-base);
     color: var(--color-muted);
+    /* Keeps the tap target tall while the underline hugs the text. */
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -0.75rem -0.5rem;
+    }
     &:hover {
       color: var(--color-black);
     }

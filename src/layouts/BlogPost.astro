@@ -47,13 +47,71 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
             </div>
             <h1>{title}</h1>
             <hr />
-            <slot />
+            <div class="post-body"><slot /></div>
             <Comments />
           </div>
         </article>
       </div>
     </main>
     <Footer />
+    <script>
+      // Progress runs to the end of the post body, not the comments.
+      const meter = document.querySelector<HTMLElement>('.progress');
+      const body = document.querySelector<HTMLElement>('.post-body');
+      const update = () => {
+        if (!meter || !body) return;
+        const end = body.getBoundingClientRect().bottom + scrollY;
+        const span = Math.max(end - innerHeight, 1);
+        const p = Math.min(Math.max(scrollY / span, 0), 1);
+        meter.style.setProperty('--p', String(p));
+      };
+      // Header hides while scrolling down and returns after a short scroll up.
+      const header = document.querySelector<HTMLElement>('body > header');
+      let lastY = scrollY;
+      let upDistance = 0;
+      const toggleHeader = () => {
+        if (!header) return;
+        const dy = scrollY - lastY;
+        lastY = scrollY;
+        upDistance = dy < 0 ? upDistance - dy : 0;
+        if (scrollY < header.offsetHeight || upDistance > 48) {
+          header.removeAttribute('data-hidden');
+        } else if (dy > 0) {
+          header.setAttribute('data-hidden', '');
+        }
+      };
+      addEventListener('scroll', toggleHeader, { passive: true });
+      addEventListener('scroll', update, { passive: true });
+      addEventListener('resize', update);
+      update();
+
+      // Give each code block a header bar: language on the left, Copy on the right.
+      document.querySelectorAll<HTMLPreElement>('.prose pre').forEach((pre) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'code-block';
+        const bar = document.createElement('div');
+        bar.className = 'code-bar';
+        const lang = document.createElement('span');
+        lang.textContent = pre.dataset.language ?? '';
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'copy';
+        btn.textContent = 'Copy';
+        btn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(pre.innerText.trimEnd());
+            btn.textContent = 'Copied';
+          } catch {
+            btn.textContent = 'Failed';
+          }
+          setTimeout(() => (btn.textContent = 'Copy'), 1600);
+        });
+        wrap.style.backgroundColor = pre.style.backgroundColor;
+        bar.append(lang, btn);
+        pre.replaceWith(wrap);
+        wrap.append(bar, pre);
+      });
+    </script>
   </body>
 </html>
 
@@ -70,30 +128,29 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       color: var(--color-black);
     }
   }
-  /* Reading progress: scroll-driven, so browsers without support skip it. */
+  :global(body > header) {
+    position: sticky;
+    top: 0;
+    z-index: 9;
+    transition: transform 0.25s ease-out;
+  }
+  :global(body > header[data-hidden]:not(:focus-within)) {
+    transform: translateY(-100%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(body > header) {
+      transition: none;
+    }
+  }
+  /* Reading progress: set from script, ends where the post body ends. */
   .progress {
-    display: none;
-  }
-  @supports (animation-timeline: scroll()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .progress {
-        display: block;
-        position: fixed;
-        inset: 0 0 auto;
-        z-index: 10;
-        height: 3px;
-        background-color: var(--color-teal);
-        transform: scaleX(0);
-        transform-origin: left;
-        animation: fill linear both;
-        animation-timeline: scroll(root);
-      }
-    }
-  }
-  @keyframes fill {
-    to {
-      transform: scaleX(1);
-    }
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 10;
+    height: 4px;
+    background-color: var(--color-teal);
+    transform: scaleX(var(--p, 0));
+    transform-origin: left;
   }
   .hero-image {
     max-width: 42rem;
@@ -216,6 +273,44 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     background: none;
     font: inherit;
   }
+  .prose :global(.code-block) {
+    margin: 0 0 1.25em;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .prose :global(.code-block pre) {
+    margin: 0;
+    border-radius: 0;
+  }
+  /* Header bar: same ground as the code, hairline below, never overlaps it. */
+  .prose :global(.code-bar) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.35rem 0.5rem 0.35rem 1rem;
+    border-bottom: 1px solid rgb(255 255 255 / 0.12);
+    color: rgb(255 255 255 / 0.6);
+    font: 500 var(--text-xs) / 1.4 var(--font-mono);
+  }
+  .prose :global(.copy) {
+    padding: 0.25rem 0.6rem;
+    border: 0;
+    border-radius: 4px;
+    background: none;
+    color: inherit;
+    font: 500 var(--text-xs) / 1.4 var(--font-sans);
+    cursor: pointer;
+    transition:
+      color 0.15s,
+      background-color 0.15s;
+  }
+  .prose :global(.copy:is(:hover, :focus-visible)) {
+    background: rgb(255 255 255 / 0.14);
+    color: var(--color-white);
+  }
+  .prose :global(.copy:focus-visible) {
+    outline-color: var(--color-white);
+  }
   .prose :global(img) {
     display: block;
   }
@@ -248,9 +343,15 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
   /* Let code blocks use the full screen width on phones. */
   @media (width < 48rem) {
-    .prose :global(pre) {
+    .prose :global(:is(pre, .code-block)) {
       margin-inline: calc(var(--container-padding) * -1);
       border-radius: 0;
+    }
+    .prose :global(.code-block pre) {
+      margin-inline: 0;
+    }
+    .prose :global(.code-bar) {
+      padding-left: var(--container-padding);
     }
   }
   @media (width >= 48rem) {

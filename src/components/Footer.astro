@@ -1,6 +1,11 @@
 ---
 import { Icon } from 'astro-icon/components';
 
+interface Props {
+  credits?: boolean;
+}
+
+const { credits = false } = Astro.props;
 const today = new Date();
 ---
 
@@ -8,13 +13,13 @@ const today = new Date();
   <div class="container bare">
     <div class="credits">
       <span>&copy; {today.getFullYear()} Hafid Nur. All rights reserved.</span>
-      <small
+      {credits && <small
         >Emoji animation by <a
           href="https://googlefonts.github.io/noto-emoji-animation/"
           target="_blank"
           rel="noopener noreferrer">Google Noto</a
         >, CC BY 4.0</small
-      >
+      >}
     </div>
     <div class="social-links">
       <a
