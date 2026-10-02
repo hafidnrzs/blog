@@ -12,16 +12,6 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <style>
-      @media (min-width: 768px) {
-        .container {
-          border-inline: 1px solid var(--color-gray-02);
-        }
-      }
-      .spacer {
-        height: 6rem;
-      }
-    </style>
   </head>
   <body>
     <Header />
@@ -29,7 +19,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
       <Hero />
       <Marquee />
       <BlogPreview />
-      <Footer />
     </main>
+    <Footer />
   </body>
 </html>

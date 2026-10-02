@@ -206,4 +206,4 @@ Book flight FL123 for John Doe using flight-booking server
 
 ---
 
-**❓Punya pertanyaan, saran, atau menemukan bagian yang perlu diperbaiki? Silakan tulis di kolom komentar, aku dengan senang hati menanggapi. Terima kasih sudah mengikuti panduan ini sampai selesai**
+**❓Punya pertanyaan, saran, atau menemukan bagian yang perlu diperbaiki? Silakan tulis di kolom komentar, saya dengan senang hati menanggapi. Terima kasih sudah mengikuti panduan ini sampai selesai**

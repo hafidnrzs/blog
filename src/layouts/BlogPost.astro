@@ -15,90 +15,250 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} image={heroImage} />
-    <style>
-      main {
-        min-height: calc(100vh - 4rem);
-      }
-      @media (width >= 48rem) {
-        main {
-          border-inline: 1px solid var(--color-gray-02);
-        }
-      }
-      .back-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding-block: 1.5rem;
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-size: 1rem;
-        color: var(--color-gray-08);
-        text-decoration: none;
-        &:hover {
-          color: var(--color-black);
-        }
-      }
-      .hero-image {
-        max-width: 720px;
-        width: 100%;
-        margin: 0.5rem auto;
-        margin-bottom: 0.5rem;
-        img {
-          display: block;
-          width: 100%;
-          aspect-ratio: 1.91 / 1;
-          object-fit: cover;
-        }
-      }
-      .prose {
-        max-width: 720px;
-        margin: 0 auto;
-        padding-bottom: 6rem;
-      }
-      .meta {
-        margin-bottom: 1rem;
-        color: var(--color-gray-08);
-        font-size: 1.125rem;
-      }
-      .last-updated-on {
-        font-style: italic;
-      }
-      hr {
-        border: none;
-        border-top: 1px solid var(--color-gray-02);
-        margin-bottom: 1.25rem;
-      }
-    </style>
   </head>
 
   <body>
+    <div class="progress" aria-hidden="true"></div>
     <Header />
-    <main class="container">
-      <a href="/blog" class="back-link">
-        <Icon name="mdi:chevron-left" />
-        <span>Semua Artikel </span>
-      </a>
-      <article>
-        <div class="hero-image">
-          {heroImage && <img src={heroImage} alt={title} />}
-        </div>
-        <div class="prose">
-          <div class="meta">
-            <FormattedDate date={pubDate} />
-            {
-              updatedDate && (
-                <div class="last-updated-on">
-                  Terakhir diperbarui: <FormattedDate date={updatedDate} />
-                </div>
-              )
-            }
+    <main class="band">
+      <div class="container">
+        <a href="/blog" class="back-link">
+          <Icon name="mdi:chevron-left" />
+          <span>Semua Artikel</span>
+        </a>
+        <article>
+          {
+            heroImage && (
+              <div class="hero-image">
+                <img src={heroImage} alt="" />
+              </div>
+            )
+          }
+          <div class="prose">
+            <div class="meta">
+              <FormattedDate date={pubDate} />
+              {
+                updatedDate && (
+                  <div class="last-updated-on">
+                    Terakhir diperbarui: <FormattedDate date={updatedDate} />
+                  </div>
+                )
+              }
+            </div>
+            <h1>{title}</h1>
+            <hr />
+            <slot />
+            <Comments />
           </div>
-          <h1>{title}</h1>
-          <hr />
-          <slot />
-          <Comments />
-        </div>
-      </article>
+        </article>
+      </div>
     </main>
     <Footer />
   </body>
 </html>
+
+<style>
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-block: 1.5rem;
+    font-size: var(--text-base);
+    color: var(--color-muted);
+    text-decoration: none;
+    &:hover {
+      color: var(--color-black);
+    }
+  }
+  /* Reading progress: scroll-driven, so browsers without support skip it. */
+  .progress {
+    display: none;
+  }
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .progress {
+        display: block;
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 10;
+        height: 3px;
+        background-color: var(--color-teal);
+        transform: scaleX(0);
+        transform-origin: left;
+        animation: fill linear both;
+        animation-timeline: scroll(root);
+      }
+    }
+  }
+  @keyframes fill {
+    to {
+      transform: scaleX(1);
+    }
+  }
+  .hero-image {
+    max-width: 42rem;
+    margin: 0 auto 1.5rem;
+    img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1.91 / 1;
+      object-fit: cover;
+    }
+  }
+  .prose {
+    --measure: 42rem;
+    --prose-size: clamp(1.0625rem, 1rem + 0.25vw, 1.125rem);
+    --code-size: var(--text-xs);
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding-bottom: 5rem;
+    font-family: var(--font-serif);
+    font-size: var(--prose-size);
+    line-height: 1.7;
+  }
+  .meta {
+    margin-bottom: 0.75rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+  .last-updated-on {
+    font-style: italic;
+  }
+  h1 {
+    font-family: var(--font-sans);
+    font-size: var(--text-3xl);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  hr {
+    margin-block: 1.5rem;
+    border: none;
+    border-top: 1px solid var(--color-rail);
+  }
+
+  /* Markdown body: rendered through <slot />, so it needs :global. */
+  .prose :global(:is(p, ul, ol, blockquote, pre, table, figure)) {
+    margin: 0 0 1.25em;
+  }
+  .prose :global(:is(h2, h3, h4, h5, h6)) {
+    margin: 2.25em 0 0.6em;
+    font-family: var(--font-sans);
+    line-height: 1.25;
+    scroll-margin-top: 1rem;
+  }
+  .prose :global(h2) {
+    font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.5rem);
+  }
+  .prose :global(h3) {
+    font-size: 1.1875rem;
+  }
+  .prose :global(:is(h4, h5, h6)) {
+    font-size: var(--text-base);
+  }
+  .prose :global(a) {
+    color: var(--color-teal);
+    text-decoration: none;
+    background-image:
+      linear-gradient(var(--color-teal), var(--color-teal)),
+      linear-gradient(var(--color-lime), var(--color-lime));
+    background-position:
+      0 100%,
+      0 100%;
+    background-repeat: no-repeat;
+    background-size:
+      0 2px,
+      100% 2px;
+    transition: background-size 0.25s ease-out;
+  }
+  .prose :global(a:is(:hover, :focus-visible)) {
+    background-size:
+      100% 2px,
+      100% 2px;
+  }
+  .prose :global(strong) {
+    font-weight: 600;
+  }
+  .prose :global(:is(ul, ol)) {
+    padding-left: 1.4em;
+  }
+  .prose :global(li + li) {
+    margin-top: 0.35em;
+  }
+  .prose :global(blockquote) {
+    padding-left: 1.25em;
+    border-left: 1px solid var(--color-muted);
+    color: var(--color-muted);
+    font-style: italic;
+  }
+  .prose :global(blockquote > :last-child) {
+    margin-bottom: 0;
+  }
+  .prose :global(:not(pre) > code) {
+    padding: 0.1em 0.35em;
+    background-color: var(--color-surface);
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    overflow-wrap: anywhere;
+  }
+  .prose :global(pre) {
+    padding: 1rem;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: var(--code-size);
+    line-height: 1.6;
+    tab-size: 2;
+    overflow-x: auto;
+  }
+  .prose :global(pre code) {
+    padding: 0;
+    background: none;
+    font: inherit;
+  }
+  .prose :global(img) {
+    display: block;
+  }
+  .prose :global(table) {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+  }
+  .prose :global(:is(th, td)) {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--color-rail);
+    text-align: left;
+  }
+  .prose :global(th) {
+    background-color: var(--color-surface);
+    font-weight: 600;
+  }
+  .prose :global(.footnotes) {
+    font-size: var(--text-sm);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .prose :global(a) {
+      transition: none;
+    }
+  }
+
+  /* Let code blocks use the full screen width on phones. */
+  @media (width < 48rem) {
+    .prose :global(pre) {
+      margin-inline: calc(var(--container-padding) * -1);
+      border-radius: 0;
+    }
+  }
+  @media (width >= 48rem) {
+    .prose {
+      --code-size: var(--text-sm);
+    }
+    .prose :global(pre) {
+      padding: 1.25rem;
+    }
+  }
+</style>

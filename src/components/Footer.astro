@@ -5,10 +5,17 @@ const today = new Date();
 ---
 
 <footer>
-  <div class="container">
-    <span class="font-sans"
-      >&copy; {today.getFullYear()} Hafid Nur. All rights reserved.</span
-    >
+  <div class="container bare">
+    <div class="credits">
+      <span>&copy; {today.getFullYear()} Hafid Nur. All rights reserved.</span>
+      <small
+        >Emoji animation by <a
+          href="https://googlefonts.github.io/noto-emoji-animation/"
+          target="_blank"
+          rel="noopener noreferrer">Google Noto</a
+        >, CC BY 4.0</small
+      >
+    </div>
     <div class="social-links">
       <a
         href="https://www.linkedin.com/in/hafidnrzs/"
@@ -40,22 +47,28 @@ const today = new Date();
 <style>
   footer {
     background: var(--color-black);
-    font-size: 1rem;
     color: var(--color-white);
+    font-size: var(--text-sm);
     text-align: center;
-    .container {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      justify-content: space-between;
-      align-items: center;
-      padding-block: 2rem;
+    :focus-visible {
+      outline-color: var(--color-white);
     }
   }
-  [data-icon] {
-    font-size: 1.5rem;
-    height: 1.5rem;
-    flex-shrink: 0;
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 2rem;
+  }
+  .credits {
+    display: grid;
+    gap: 0.25rem;
+    small {
+      color: var(--color-line);
+      font-size: var(--text-xs);
+    }
   }
   .social-links {
     display: flex;
@@ -68,18 +81,25 @@ const today = new Date();
       height: 2.25rem;
       border-radius: 50%;
       background-color: var(--color-white);
-      text-decoration: none;
       color: var(--color-black);
-
+      text-decoration: none;
       &:hover {
-        background-color: var(--color-gray-03);
+        background-color: var(--color-line);
       }
     }
   }
+  [data-icon] {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
   @media (width >= 48rem) {
-    footer .container {
-      border-inline: 1px solid var(--color-gray-10);
+    .container {
       flex-direction: row;
+    }
+    .credits {
+      justify-items: start;
+      text-align: left;
     }
   }
 </style>

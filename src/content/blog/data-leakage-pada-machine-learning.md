@@ -1,6 +1,6 @@
 ---
 title: 'Data Leakage pada Machine Learning'
-description: 'Ternyata selama ini aku salah dalam training model machine learning'
+description: 'Ternyata selama ini saya salah dalam training model machine learning'
 pubDate: 2025-04-03
 heroImage: 'https://media.hafidnrzs.com/data-leakage-machine-learning.jpg'
 ---
